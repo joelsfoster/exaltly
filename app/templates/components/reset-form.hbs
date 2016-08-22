@@ -1,0 +1,13 @@
+{{#bs-form  model=this action="resetPasswd"}}
+	<div class="row">
+		<p class="col-md-12">Enter in your email address, and we'll send you a temporary password. When you log into your account, be sure to reset your account's password!</p>		
+	</div>
+	<br/>
+	{{bs-form-element controlType="email" hasLabel=false label="Email" placeholder="Email" property="email"}}
+	<div class="row">
+	<button class="button special pull-right" disabled={{loadding}} type="submit">
+		{{#if loadding}}<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;{{/if}}
+		SEND
+	</button>
+	</div>
+{{/bs-form}}

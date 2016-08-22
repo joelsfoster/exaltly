@@ -1,0 +1,63 @@
+{{#bs-form model=this action="saveUser"}}	
+	<div class="row">
+		<label class="control-label col-md-4 text-right">Account Owner</label>
+		<div class="col-sm-4">
+			{{bs-form-element controlType="text" hasLabel=false label="" placeholder="First Name" property="firstName"}}
+		</div>
+		<div class="col-sm-4">
+			{{bs-form-element controlType="text" hasLabel=false label="" placeholder="Last Name" property="lastName"}}
+		</div>		
+	</div>
+	<div class="row">
+		<label class="control-label col-md-4 text-right">Email</label>
+		<div class="col-sm-8">
+			{{bs-form-element controlType="email" hasLabel=false label="" placeholder="Email" property="email" classNames="email"}}
+		</div>		
+	</div>
+
+	<div class="row myaccount-button-row">		
+		<div class="col-md-offset-4 col-sm-8">
+			<button class="button default" {{action "changePassword"}}>
+				Change Password
+			</button>		
+		</div>
+	</div>	
+	<div class="row myaccount-button-row">		
+		<div class="col-md-offset-4 col-sm-8">
+			<button class="button default" {{action "editCreditCard"}}>
+				Change Payment Information
+			</button>		
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<div class="row">
+		<div class="col-md-12">
+			<button class="button special" {{action "deleteAccount"}}>
+				Delete Account
+			</button>	
+			<button class="button special pull-right" disabled={{loadding}} type="submit">
+				{{#if loadding}}<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;{{/if}}
+				Save
+			</button>
+		</div>
+	</div>
+{{/bs-form}}
+
+{{#bs-modal title="What is your password" open=passwordRequiredModalView footer=false backdropClose=true}}	
+	{{#if passwordRequiredModalView}}
+		{{required-password-form setpassword=(action "onInputPassword")  modalclose=(action "closeRequiredPasswordModal") }}
+	{{/if}}
+{{/bs-modal}}
+
+{{#bs-modal title="Change Password" open=changepasswordModalView footer=false backdropClose=true}}	
+	{{#if changepasswordModalView}}
+		{{change-password-form modalclose=(action "changePasswordModalClose") showNotification=(action "showNotification")}}
+	{{/if}}
+{{/bs-modal}}
+
+{{#bs-modal title="Change Payment Information" open=crediticardModalView footer=false backdropClose=true}}	
+	{{#if crediticardModalView}}
+		{{crediticard-form modalclose=(action "creditiCardModalClose") showNotification=(action "showNotification")}}
+	{{/if}}
+{{/bs-modal}}

@@ -1,0 +1,82 @@
+{{#bs-form  model=this action="" classNames ="musician-form"}}	
+	<!-- Service Item Rows -->
+	<div class="serviceitem-rows">
+		{{#draggable-object-target overrideClass='my-new-class-name'}}
+		{{/draggable-object-target}}
+
+		{{#sortable-objects sortableObjectList=serviceItems  enableSort=true  sortEndAction='sortEndAction'}}
+		  {{#each serviceItem in serviceItems}}
+				{{#draggable-object content=serviceItem isSortable=true  dragHandle='.js-dragHandle'}}					
+				  {{#if-equal param1=serviceItem.itemType param2="service"}}
+					{{event-serviceitem-row
+							serviceItem=serviceItem
+							title=serviceItem.title
+							removeServiceItem=(action "removeServiceItem")}}
+					{{/if-equal}}
+					{{#if-equal param1=serviceItem.itemType param2="song"}}
+						{{event-servicesong-row
+							serviceItem=serviceItem
+							title=serviceItem.title
+							editSong=(action "editSong")
+							removeServiceItem=(action "removeServiceItem")}}
+					{{/if-equal}}
+				{{/draggable-object}}			
+			{{/each}}
+		{{/sortable-objects}}
+		
+	</div>	
+	<div class="button-row">
+		<button class="button default" {{action "addService"}}>
+			<i class="fa fa-plus"></i>&nbsp;Add service item
+		</button>
+		&nbsp;&nbsp;
+		<button class="button default" {{action "addSong"}}>
+			<i class="fa fa-plus"></i>&nbsp;Add song
+		</button>
+	</div>
+	<hr/>
+
+	<div class="muscianitem-rows">
+		{{#each musicianitem in musicianItems }}
+			{{event-musician-row
+				musician=musicianitem 
+				musicianId=musicianitem.musicianId
+				musicianDesc=musicianitem.musicianDesc
+				removeMusician=(action "removeMusician")}}
+		{{/each}}
+	</div>
+
+	<div class="button-row">
+		<button class="button default" {{action "addMusician"}}>
+			<i class="fa fa-plus"></i>&nbsp;Add musician
+		</button>		
+	</div>
+
+	<div class="row">
+		<div class="pull-right">
+			<button class="button default" {{action "closeModal"}}>
+				Cancel
+			</button>&nbsp;&nbsp;
+			<button class="button default" {{action "back"}}>
+				Back
+			</button>&nbsp;&nbsp;
+			<button class="button special" disabled={{loadding}} {{action "save"}}>
+				{{#if loadding}}<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;{{/if}}
+				Finish
+			</button>
+		</div>
+	</div>
+
+{{/bs-form}}
+
+{{#bs-modal title=sondmodalTitle open=openSongEditModal footer=false backdropClose=handback}}	
+	{{#if openSongEditModal}}
+		{{songdetail-form song=activedSong mode=songEditMode  addsong=(action "addSongItem")  modalclose=(action "closeSongModal") }}
+	{{/if}}
+{{/bs-modal}}
+
+{{#bs-modal title="Send Notification" open=openNotificationModal footer=false backdropClose=handback}}	
+	{{#if openNotificationModal}}
+		{{settingnotification-form  musicianItems=musicianItems send1=(action "sendNotification") notsend1=(action "notSendNotifcation")}}
+	{{/if}}
+{{/bs-modal}}

@@ -1,0 +1,17 @@
+{{#bs-form model=this action="signup"}}
+	{{bs-form-element controlType="text" hasLabel=false label="First Name" placeholder="First Name" property="firstname"}}
+	{{bs-form-element controlType="text" hasLabel=false label="Last Name" placeholder="Last Name" property="lastname"}}
+	{{bs-form-element controlType="email" hasLabel=false label="Email" placeholder="Email" property="email"}}
+	{{bs-form-element controlType="password" hasLabel=false label="Password" placeholder="Password" property="password"}}  	
+	<div class="row">
+		<p class="col-md-12 text-left">
+			You're almost there! Don't worry, you won't be asked for your credit card until your 30-day free trial is finished.
+		</p>				
+	</div>
+	<div class="row">
+		<button class="button special pull-right" disabled={{loadding}} type="submit">
+			{{#if loadding}}<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;{{/if}}
+			SIGN UP
+		</button>
+	</div>	
+{{/bs-form}}
